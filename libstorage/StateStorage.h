@@ -238,22 +238,17 @@ private:
 
 #define STORAGE_REPORT_GET(table, key, entry, desc) \
     if (c_fileLogLevel >= bcos::LogLevel::TRACE)    \
-    {                                               \
-    }                                               \
-    // log("GET", (table), (key), (entry), (desc))
+     log("GET", (table), (key), (entry), (desc))
 
 #define STORAGE_REPORT_SET(table, key, entry, desc) \
     if (c_fileLogLevel >= bcos::LogLevel::TRACE)    \
-    {                                               \
-    }                                               \
-    // log("SET", (table), (key), (entry), (desc))
+     log("SET", (table), (key), (entry), (desc))
 
     // for debug
     void log(const std::string_view& op, const std::string_view& table, const std::string_view& key,
         const std::optional<Entry>& entry, const std::string_view& desc = "")
     {
-        if (m_readOnly)
-        {
+
             if (entry)
             {
                 if (entry->fieldCount() > 0)
@@ -278,6 +273,6 @@ private:
                                    << "|" << desc;
             }
         }
-    }
+
 };
 }  // namespace bcos::storage

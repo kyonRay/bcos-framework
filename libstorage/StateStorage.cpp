@@ -302,8 +302,9 @@ void StateStorage::asyncSetRow(std::string_view tableNameView, std::string_view 
             return;
         }
 
-        if (m_data.emplace(
-                EntryKey(std::string(tableNameView), std::string(keyView)), std::move(entry)))
+        decltype(m_data)::const_accessor constEntryIt;
+        if (m_data.emplace(constEntryIt, EntryKey(std::string(tableNameView), std::string(keyView)),
+                std::move(entry)))
         {
             STORAGE_REPORT_SET(constEntryIt->first.table(), constEntryIt->first.key(),
                 constEntryIt->second, "INSERT");
